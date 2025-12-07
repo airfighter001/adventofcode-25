@@ -10,7 +10,7 @@ void main() throws IOException {
 private int part1(String[][] grid) {
     int splits = 0;
     var beans = ConcurrentHashMap.<Integer>newKeySet();
-    beans.add(70);
+    beans.add(grid[0].length / 2);
 
     for (int k = 2; k < grid.length; k += 2) {
         for (int bean : beans) {
@@ -31,9 +31,11 @@ long part2(String[][] grid) {
 
     for (int k = grid.length - 2; k > 1; k -= 2) {
         for (int i = 0; i < grid[0].length; i++) {
-            columns[i] = grid[k][i].equals("^") ? columns[i - 1] + columns[i + 1] : columns[i];
+            if (grid[k][i].equals("^")) {
+                columns[i] = columns[i - 1] + columns[i + 1];
+            }
         }
     }
 
-    return columns[70];
+    return columns[columns.length / 2];
 }
